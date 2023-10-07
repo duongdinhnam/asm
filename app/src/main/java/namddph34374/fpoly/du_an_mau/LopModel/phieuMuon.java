@@ -1,4 +1,4 @@
-package namddph34374.fpoly.du_an_mau.LopProduct;
+package namddph34374.fpoly.du_an_mau.LopModel;
 
 public class phieuMuon {
     private int maPm;
@@ -7,17 +7,18 @@ public class phieuMuon {
     private int maSpm;
     private int tienthue;
     private String ngaymuon;
+    private int traSach;
 
     public phieuMuon() {
     }
 
-    public phieuMuon( String maNVpm, int maTVpm, int maSpm, int tienthue, String ngaymuon) {
-        this.maPm = maPm;
+    public phieuMuon(String maNVpm, int maTVpm, int maSpm, int tienthue, String ngaymuon, int traSach) {
         this.maNVpm = maNVpm;
         this.maTVpm = maTVpm;
         this.maSpm = maSpm;
         this.tienthue = tienthue;
         this.ngaymuon = ngaymuon;
+        this.traSach = traSach;
     }
 
     public int getMaPm() {
@@ -66,5 +67,13 @@ public class phieuMuon {
 
     public void setNgaymuon(String ngaymuon) {
         this.ngaymuon = ngaymuon;
+    }
+
+    public int getTraSach() {
+        return traSach;
+    }
+
+    public void setTraSach(int traSach) {
+        this.traSach = traSach;
     }
 }

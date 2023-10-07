@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import namddph34374.fpoly.du_an_mau.Fragment.Doi_Mk;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_loaiSach;
+import namddph34374.fpoly.du_an_mau.Fragment.QL_phieumuon;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_sach;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_thanhvien;
 
@@ -76,9 +77,9 @@ public class Manchinh extends AppCompatActivity {
                 if (item.getItemId() == R.id.nav_ThanhVien) {
                     fragment = new QL_thanhvien();
                 }
-//                if (item.getItemId() == R.id.doimatkhau) {
-//                    fragment = new Doimatkhau();
-//                }
+                if (item.getItemId() == R.id.nav_PhieuMuon) {
+                    fragment = new QL_phieumuon();
+                }
                 if (item.getItemId() == R.id.nav_DangXuat) {
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
                     builder.setIcon(R.drawable.baseline_error_24);

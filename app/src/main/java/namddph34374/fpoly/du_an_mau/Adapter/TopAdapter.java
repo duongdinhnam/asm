@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import namddph34374.fpoly.du_an_mau.LopProduct.Top;
+import namddph34374.fpoly.du_an_mau.LopModel.Top;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class TopAdapter extends RecyclerView.Adapter<TopAdapter.ViewHolde> {

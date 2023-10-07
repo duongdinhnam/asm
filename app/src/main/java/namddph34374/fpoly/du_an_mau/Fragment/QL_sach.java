@@ -1,8 +1,6 @@
 package namddph34374.fpoly.du_an_mau.Fragment;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,8 +25,8 @@ import java.util.ArrayList;
 import namddph34374.fpoly.du_an_mau.Adapter.SachAdapter;
 import namddph34374.fpoly.du_an_mau.Dao.LoaiSachDAO;
 import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
-import namddph34374.fpoly.du_an_mau.LopProduct.Sach;
-import namddph34374.fpoly.du_an_mau.LopProduct.loaiSach;
+import namddph34374.fpoly.du_an_mau.LopModel.Sach;
+import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class QL_sach extends Fragment {

@@ -1,11 +1,11 @@
-package namddph34374.fpoly.du_an_mau.LopProduct;
+package namddph34374.fpoly.du_an_mau.LopModel;
 
 public class thanhVien {
     private int maTv;
     private String hoTentv;
     private String namSinhTv;
 
-    public thanhVien() {
+    public thanhVien(String maTV, String hoTen, String namSinh) {
     }
 
     public thanhVien( String hoTentv, String namSinhTv) {

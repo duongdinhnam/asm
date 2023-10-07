@@ -16,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
 import namddph34374.fpoly.du_an_mau.Dao.ThanhVienDAO;
-import namddph34374.fpoly.du_an_mau.LopProduct.Sach;
-import namddph34374.fpoly.du_an_mau.LopProduct.thanhVien;
+import namddph34374.fpoly.du_an_mau.LopModel.thanhVien;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.ViewHolder>{

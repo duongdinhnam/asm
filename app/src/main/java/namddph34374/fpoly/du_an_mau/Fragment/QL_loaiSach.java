@@ -16,11 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import namddph34374.fpoly.du_an_mau.Adapter.LoaiSachAdapter;
-import namddph34374.fpoly.du_an_mau.Adapter.SachAdapter;
 import namddph34374.fpoly.du_an_mau.Dao.LoaiSachDAO;
-import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
-import namddph34374.fpoly.du_an_mau.LopProduct.Sach;
-import namddph34374.fpoly.du_an_mau.LopProduct.loaiSach;
+import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class QL_loaiSach extends Fragment {

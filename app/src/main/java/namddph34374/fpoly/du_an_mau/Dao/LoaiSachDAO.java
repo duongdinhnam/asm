@@ -8,8 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
-import namddph34374.fpoly.du_an_mau.LopProduct.Sach;
-import namddph34374.fpoly.du_an_mau.LopProduct.loaiSach;
+import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 
 public class LoaiSachDAO {
     private Dbheper dBhelper;

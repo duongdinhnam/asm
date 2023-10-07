@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import namddph34374.fpoly.du_an_mau.Dao.LoaiSachDAO;
-import namddph34374.fpoly.du_an_mau.LopProduct.loaiSach;
+import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class LoaiSachAdapter extends RecyclerView.Adapter<LoaiSachAdapter.ViewHolder>{

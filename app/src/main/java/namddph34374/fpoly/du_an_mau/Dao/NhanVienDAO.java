@@ -1,15 +1,10 @@
 package namddph34374.fpoly.du_an_mau.Dao;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
-import namddph34374.fpoly.du_an_mau.LopProduct.Sach;
-import namddph34374.fpoly.du_an_mau.LopProduct.nhanVien;
 
 public class NhanVienDAO {
     private SQLiteDatabase database;

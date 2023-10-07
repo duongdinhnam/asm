@@ -1,4 +1,4 @@
-package namddph34374.fpoly.du_an_mau.LopProduct;
+package namddph34374.fpoly.du_an_mau.LopModel;
 
 public class Sach {
     private int mas;

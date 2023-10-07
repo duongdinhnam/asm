@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class Dbheper extends SQLiteOpenHelper {
     private static final String DB_NAME = "PNLINB.db";
-    private static final int VERSION = 10;
+    private static final int VERSION = 14;
     public Dbheper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
     }
@@ -63,10 +63,15 @@ public class Dbheper extends SQLiteOpenHelper {
         String createTablepm = "CREATE TABLE pm(MAPM INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "MANVPM TEXT REFERENCES nhanVien(MANV), " +
                 "MATVPM INTEGER REFERENCES thanhVien(MATV), " +
-                "MASACHPM INTEGER REFERENCES Sach(MAS), " +
+                "MASPM INTEGER REFERENCES Sach(MAS), " +
                 "TIENTHUE INTEGER,"+
-                "NGAYMUON DATE)";
+                "NGAYMUON TEXT,"+
+                "TRASACH INTEGER)";
         db.execSQL(createTablepm);
+        String insertpm = "INSERT INTO pm ( MANVPM, MATVPM, MASPM, TIENTHUE, NGAYMUON, TRASACH) VALUES "
+                + "( '1' , 1 , 1 , 20000, '2023-09-27', 1), "
+                + "( '2' , 1 , 2 , 12000, '2023-02-20', 0)";
+        db.execSQL(insertpm);
     }
 
 
