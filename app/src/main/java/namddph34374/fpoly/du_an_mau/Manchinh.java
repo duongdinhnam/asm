@@ -28,6 +28,7 @@ import namddph34374.fpoly.du_an_mau.Fragment.QL_loaiSach;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_phieumuon;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_sach;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_thanhvien;
+import namddph34374.fpoly.du_an_mau.Fragment.TopSach;
 
 public class Manchinh extends AppCompatActivity {
     Context context =  this;
@@ -79,6 +80,9 @@ public class Manchinh extends AppCompatActivity {
                 }
                 if (item.getItemId() == R.id.nav_PhieuMuon) {
                     fragment = new QL_phieumuon();
+                }
+                if (item.getItemId() == R.id.nav_TopMuon) {
+                    fragment = new TopSach();
                 }
                 if (item.getItemId() == R.id.nav_DangXuat) {
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);

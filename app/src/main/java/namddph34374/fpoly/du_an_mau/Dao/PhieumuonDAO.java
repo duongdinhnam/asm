@@ -75,91 +75,31 @@ public class PhieumuonDAO {
         int result = database.delete("pm", "MAPM=?", new String[]{String.valueOf(mapm)});
         return result;
     }
+    public ArrayList<Top> getTop10Books() {
+        ArrayList<Top> top10List = new ArrayList<>();
+        database = dbheper.getReadableDatabase();
 
+        String query = "SELECT s.TENS AS TenSach, COUNT(pm.MASPM) AS SoLuotMuon " +
+                "FROM pm " +
+                "INNER JOIN s ON pm.MASPM = s.MAS " +
+                "GROUP BY pm.MASPM " +
+                "ORDER BY SoLuotMuon DESC " +
+                "LIMIT 10";
 
+        Cursor cursor = database.rawQuery(query, null);
 
-//    @SuppressLint("Range")
-//    public List<Top> getTop10() {
-//        String sqlTop10 = "SELECT MASPM, COUNT(*) AS soLuong " +
-//                "FROM pm " +
-//                "GROUP BY MASPM " +
-//                "ORDER BY soLuong DESC " +
-//                "LIMIT 10";
-//
-//        List<Top> top10List = new ArrayList<>();
-//
-//        Cursor cursor = database.rawQuery(sqlTop10, null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                int maSach = cursor.getInt(cursor.getColumnIndex("MASPM"));
-//                int soLuotMuon = cursor.getInt(cursor.getColumnIndex("soLuong"));
-//
-//                // Sử dụng mã sách để lấy thông tin chi tiết về sách từ bảng "s" (Sach)
-//                Sach sach = getSachByMaSach(maSach);
-//
-//                if (sach != null) {
-//                    Top top = new Top();
-//                    top.setTensach(sach.getTens());
-//                    top.setSoluong(soLuotMuon);
-//                    top10List.add(top);
-//                }
-//            } while (cursor.moveToNext());
-//        }
-//
-//        cursor.close();
-//        return top10List;
-//    }
-//    private Sach getSachByMaSach(int maSach) {
-//        String sql = "SELECT * FROM s WHERE MAS = ?";
-//        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maSach)});
-//
-//        Sach sach = null;
-//
-//        if (cursor.moveToFirst()) {
-//            String tenSach = cursor.getString(cursor.getColumnIndex("TENS"));
-//            int giaSach = cursor.getInt(cursor.getColumnIndex("GIAS"));
-//
-//            // Tạo đối tượng sách
-//            sach = new Sach();
-//            sach.setMaS(maSach);
-//            sach.setTenS(tenSach);
-//            sach.setGiaS(giaSach);
-//        }
-//
-//        cursor.close();
-//        return sach;
-//    }
+        if (cursor.moveToFirst()) {
+            do {
+                String tenSach = cursor.getString(cursor.getColumnIndexOrThrow("TenSach"));
+                int soLuotMuon = cursor.getInt(cursor.getColumnIndexOrThrow("SoLuotMuon"));
 
-//    public thanhVien getThanhVienByMaTV(String matv) {
-//        database = this.dbheper.getReadableDatabase();
-//        Cursor cursor = null;
-//        thanhVien thanhVien = null;
-//
-//        try {
-//            cursor = database.query("tv", null, "MATV=?", new String[]{matv}, null, null, null);
-//
-//            if (cursor != null && cursor.moveToFirst()) {
-//                // Lấy thông tin thành viên từ dữ liệu trả về
-//                int maTVIndex = cursor.getColumnIndex("MATV");
-//                int hoTenIndex = cursor.getColumnIndex("HOTENTV");
-//                int namSinhIndex = cursor.getColumnIndex("NAMSINHTV");
-//
-//                String maTV = cursor.getString(maTVIndex);
-//                String hoTen = cursor.getString(hoTenIndex);
-//                String namSinh = cursor.getString(namSinhIndex);
-//
-//                // Tạo đối tượng thành viên
-//                thanhVien = new thanhVien(maTV, hoTen, namSinh);
-//            }
-//        } finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
-//
-//        return thanhVien;
-//    }
+                Top top = new Top(tenSach, soLuotMuon);
+                top10List.add(top);
+            } while (cursor.moveToNext());
+        }
 
+        cursor.close();
+        return top10List;
+    }
 
 }

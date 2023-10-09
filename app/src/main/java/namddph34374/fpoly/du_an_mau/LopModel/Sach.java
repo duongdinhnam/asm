@@ -7,7 +7,7 @@ public class Sach {
     private int mals;
 
 
-    public Sach(String tenSach, String s, String selectedLoaiSach) {
+    public Sach() {
     }
 
     public Sach( String tens, int gias, int mals) {

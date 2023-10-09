@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import namddph34374.fpoly.du_an_mau.Dao.PhieumuonDAO;
 import namddph34374.fpoly.du_an_mau.LopModel.Top;
 import namddph34374.fpoly.du_an_mau.R;
 
@@ -20,7 +21,7 @@ public class TopAdapter extends RecyclerView.Adapter<TopAdapter.ViewHolde> {
      private Context context;
      private ArrayList<Top> list;
 
-    public TopAdapter(Context context, ArrayList<Top> list) {
+    public TopAdapter(Context context, ArrayList<Top> list, PhieumuonDAO phieumuonDAO) {
         this.context = context;
         this.list = list;
     }

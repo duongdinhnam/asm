@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import namddph34374.fpoly.du_an_mau.Dao.LoaiSachDAO;
 import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
 import namddph34374.fpoly.du_an_mau.LopModel.Sach;
+import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder> {
@@ -26,6 +28,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     private ArrayList<Sach> list;
     SachDAO sachDAO;
     Sach sach;
+    private LoaiSachDAO loaiSach;
     public SachAdapter(Context context, ArrayList<Sach> list, SachDAO sachDAO) {
         this.context = context;
         this.list = list;
@@ -44,6 +47,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SachAdapter.SachViewHolder holder, int position) {
+        
     holder.txtmas.setText(("Mã sách: "+ list.get(position).getMas()));
     holder.txttensach.setText("Tên sách: "+list.get(position).getTens());
     holder.txttienthue.setText("Tiền thuê: "+list.get(position).getGias());
