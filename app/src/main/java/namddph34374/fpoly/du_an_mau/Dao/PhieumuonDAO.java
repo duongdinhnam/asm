@@ -101,5 +101,21 @@ public class PhieumuonDAO {
         cursor.close();
         return top10List;
     }
+    @SuppressLint("Range")
+    public int getDoanhThu(String tuNgay, String denNgay) {
+        String sqlDoanhThu = "SELECT SUM(TIENTHUE) as doanhThu FROM pm WHERE NGAYMUON BETWEEN ? AND ? ";
+        SQLiteDatabase database = dbheper.getReadableDatabase();
+        Cursor cursor = database.rawQuery(sqlDoanhThu, new String[]{tuNgay, denNgay});
+
+        int doanhThu = 0;
+
+        if (cursor.moveToFirst()) {
+            doanhThu = cursor.getInt(cursor.getColumnIndex("doanhThu"));
+        }
+
+        cursor.close();
+        return doanhThu;
+    }
+
 
 }

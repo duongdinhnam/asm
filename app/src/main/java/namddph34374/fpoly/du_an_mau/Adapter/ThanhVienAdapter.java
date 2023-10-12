@@ -2,11 +2,16 @@ package namddph34374.fpoly.du_an_mau.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +33,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.View
     public ThanhVienAdapter(Context context, ArrayList<thanhVien> list, ThanhVienDAO thanhVienDAO) {
         this.context = context;
         this.list = list;
-        this.thanhVienDAO = thanhVienDAO;
+
     }
 
 
@@ -79,7 +84,74 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.View
                 dialog.show();
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDialog(vien);
+            }
+        });
+
     }
+    private void updateDialog(thanhVien tv) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_updata_thanhvien, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        EditText edtTenTV,edtNamSinh;
+        Button btnSua,btnHuy;
+
+        edtTenTV = view.findViewById(R.id.ed_hotentv_uptv);
+        edtNamSinh = view.findViewById(R.id.ed_namsinh_uptv);
+        btnSua = view.findViewById(R.id.btn_save_thanhvien_uptv);
+        btnHuy = view.findViewById(R.id.btn_huy_thanhvien_uptv);
+
+        edtTenTV.setText(tv.getHoTentv());
+        edtNamSinh.setText(String.valueOf(tv.getNamSinhTv()));
+
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thanhVienDAO = new ThanhVienDAO(context);
+                String tentv = edtTenTV.getText().toString();
+                String namsinh = edtNamSinh.getText().toString();
+
+                if (tentv.isEmpty()||namsinh.isEmpty()){
+                    Toast.makeText(context, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!namsinh.matches("\\d+")){
+                    Toast.makeText(context, "Năm sinh phải là số", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                tv.setHoTentv(tentv);
+                tv.setNamSinhTv(String.valueOf(Integer.parseInt(namsinh)));
+
+                if (thanhVienDAO.updateThanhVien(tv)>0){
+                    list.clear();
+                    list.addAll(thanhVienDAO.getAllSanpham());
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
 
 
 

@@ -95,20 +95,14 @@ public class QL_sach extends Fragment {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Chuyển đổi giá sách từ String thành kiểu số (int) nếu cần
-                int giaSachValue = Integer.parseInt(giaSach);
-
-                // Thực hiện việc thêm sách mới vào CSDL bằng cách gọi phương thức thích hợp từ SachDAO
-                Sach newSach = new Sach(tenSach, giaSachValue, 0); // Thay '0' bằng MALS tương ứng nếu cần
-                long result = sachDAO.addSach(newSach);
-
-                if (result > 0) {
+                Sach sach = new Sach(tenSach, Integer.parseInt(giaSach),selectedLoaiSach);
+                if (sachDAO.addSach(sach) > 0) {
                     Toast.makeText(getContext(), "Thêm sách thành công", Toast.LENGTH_SHORT).show();
                     // Cập nhật RecyclerView sau khi thêm sách
                     list.clear();
                     list.addAll(sachDAO.getAllSanpham());
                     sachAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
                 } else {
                     Toast.makeText(getContext(), "Thêm sách thất bại", Toast.LENGTH_SHORT).show();
                 }

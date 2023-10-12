@@ -4,13 +4,13 @@ public class Sach {
     private int mas;
     private String tens;
     private int gias;
-    private int mals;
+    private String mals;
 
 
     public Sach() {
     }
 
-    public Sach( String tens, int gias, int mals) {
+    public Sach( String tens, int gias, String mals) {
         this.mas = mas;
         this.tens = tens;
         this.gias = gias;
@@ -42,11 +42,11 @@ public class Sach {
         this.gias = gias;
     }
 
-    public int getMals() {
+    public String getMals() {
         return mals;
     }
 
-    public void setMals(int mals) {
+    public void setMals(String mals) {
         this.mals = mals;
     }
 

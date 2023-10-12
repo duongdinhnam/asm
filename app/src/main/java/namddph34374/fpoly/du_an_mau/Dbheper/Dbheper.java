@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class Dbheper extends SQLiteOpenHelper {
     private static final String DB_NAME = "PNLINB.db";
-    private static final int VERSION = 14;
+    private static final int VERSION = 15;
     public Dbheper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
     }
@@ -51,12 +51,12 @@ public class Dbheper extends SQLiteOpenHelper {
         String createTables = "CREATE TABLE s(MAS INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "TENS TEXT,"+
                 "GIAS INTEGER,"+
-                "MALS INTEGER REFERENCES loaiSach(MALS))";
+                "MALS TEXT REFERENCES loaiSach(MALS))";
         db.execSQL(createTables);
         String inserts = "INSERT INTO s ( TENS, GIAS, MALS) VALUES "
-                + "( 'doraemon', 10000, 1), "
-                + "( 'one piece',11000 , 1), "
-                + "( 'lập trình java', 30000, 2)";
+                + "( 'doraemon', 10000, 'Ngôn ngữ game'), "
+                + "( 'one piece',11000 , 'Ngôn ngữ game'), "
+                + "( 'lập trình java', 30000, 'Lập trình java')";
         db.execSQL(inserts);
 
         // bảng  phiếu mượn

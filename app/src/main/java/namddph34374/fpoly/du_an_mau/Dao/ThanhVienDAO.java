@@ -37,14 +37,14 @@ public class ThanhVienDAO {
 
         return database.insert("tv", null, values);
     }
-    public boolean updateThanhVien(thanhVien tv){
+    public long updateThanhVien(thanhVien tv){
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("HOTENTV", tv.getHoTentv());
         values.put("NAMSINHTV", tv.getNamSinhTv());
-        long row = database.update("tv", values, "MATV=?", new String[]{
-                String.valueOf(tv.getMaTv())});
-        return (row > 0);
+        long check = database.update("tv", values, "MATV=?", new String[]{String.valueOf(tv.getMaTv())});
+        return check;
+
     }
     public long deleteThanhVien(int matv){
         database = dbheper.getWritableDatabase();

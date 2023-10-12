@@ -23,7 +23,7 @@ public class SachDAO {
             Sach s = new Sach(
                     cursor.getString(1),
                     cursor.getInt(2),
-                    cursor.getInt(3));
+                    cursor.getString(3));
             s.setMas(cursor.getInt(0));
             list.add(s);
         }
@@ -38,15 +38,14 @@ public class SachDAO {
         values.put("MALS", s.getMals());
         return database.insert("s", null, values);
     }
-    public boolean updateSach(Sach s){
+    public long updateSach(Sach s){
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("TENS", s.getTens());
         values.put("GIAS", s.getGias());
         values.put("MALS", s.getMals());
-        long row = database.update("s", values, "MASS=?", new String[]{
-                String.valueOf(s.getMas())});
-        return (row > 0);
+        long check = database.update("s", values, "MAS=?", new String[]{String.valueOf(s.getMas())});
+        return check;
     }
     public long deleteSach(int mas){
         database = dbheper.getWritableDatabase();

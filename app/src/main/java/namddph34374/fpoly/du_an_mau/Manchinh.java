@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import namddph34374.fpoly.du_an_mau.Fragment.Doanhthu;
 import namddph34374.fpoly.du_an_mau.Fragment.Doi_Mk;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_loaiSach;
 import namddph34374.fpoly.du_an_mau.Fragment.QL_phieumuon;
@@ -83,6 +84,9 @@ public class Manchinh extends AppCompatActivity {
                 }
                 if (item.getItemId() == R.id.nav_TopMuon) {
                     fragment = new TopSach();
+                }
+                if (item.getItemId() == R.id.nav_DoanhThu) {
+                    fragment = new Doanhthu();
                 }
                 if (item.getItemId() == R.id.nav_DangXuat) {
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);

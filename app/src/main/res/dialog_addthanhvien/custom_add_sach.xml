@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:orientation="vertical">
     <Spinner
         android:id="@+id/spin_lsach"
         android:layout_width="match_parent"
@@ -24,11 +23,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="Loại Sách"
-        android:textSize="20dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/tensach"
@@ -68,9 +65,7 @@
         android:text="Thêm"
         android:textSize="25dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/maubutton"
-        app:backgroundTint="@null"/>
+        android:layout_marginTop="30dp"/>
 
 
 </LinearLayout>

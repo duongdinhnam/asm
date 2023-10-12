@@ -38,13 +38,12 @@ public class LoaiSachDAO {
         values.put("TENLS", s.getTenLS());
         return database.insert("ls", null, values);
     }
-    public boolean updateloaiSach(loaiSach s){
+    public long updateloaiSach(loaiSach s){
         database = dBhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("TENLS", s.getTenLS());
-        long row = database.update("ls", values, "MALS=?", new String[]{
-                String.valueOf(s.getMaLS())});
-        return (row > 0);
+        long check = database.update("ls", values, "MALS=?", new String[]{String.valueOf(s.getMaLS())});
+        return check;
     }
     public long deleteloaiSach(int mals){
         database = dBhelper.getWritableDatabase();
