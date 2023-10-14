@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,21 +36,37 @@ public class QL_sach extends Fragment {
     private SachDAO sachDAO;
     private SachAdapter sachAdapter;
     private ArrayList<Sach> list = new ArrayList<>();
+    SearchView searchView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_q_l_sach, container, false);
         recyclerView = view.findViewById(R.id.recyclerview_s);
         floatAdd = view.findViewById(R.id.btnadd_s);
+        searchView = view.findViewById(R.id.id_serch);
 
         sachDAO = new SachDAO(getContext());
         list = sachDAO.getAllSanpham();
         sachAdapter = new SachAdapter(getContext(), list, sachDAO);
 
 
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(sachAdapter);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                sachAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override

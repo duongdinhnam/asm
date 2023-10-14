@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
 import namddph34374.fpoly.du_an_mau.LopModel.Top;
@@ -26,12 +25,6 @@ public class PhieumuonDAO {
         if (cursor.moveToFirst()) { // Di chuyển con trỏ đến hàng đầu tiên
             do {
                 phieuMuon pm = new phieuMuon(
-                        cursor.getString(1),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4),
-                        cursor.getString(5),
-                        cursor.getInt(6)
                 );
                 pm.setMaPm(cursor.getInt(0)); // Gán mã phiếu mượn
 
@@ -49,8 +42,8 @@ public class PhieumuonDAO {
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MANVPM", m.getMaNVpm());
-        values.put("MATVPM", m.getMaTVpm());
-        values.put("MASPM", m.getMaSpm());
+        values.put("TENTVPM", m.getTenTVpm());
+        values.put("TENSACHSPM", m.getTenSachSpm());
         values.put("TIENTHUE", m.getTienthue());
         values.put("NGAYMUON", m.getNgaymuon());
         values.put("TRASACH", m.getTraSach());
@@ -60,8 +53,8 @@ public class PhieumuonDAO {
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MANVPM", m.getMaNVpm());
-        values.put("MATVPM", m.getMaTVpm());
-        values.put("MASPM", m.getMaSpm());
+        values.put("TENTVPM", m.getTenTVpm());
+        values.put("TENSACHSPM", m.getTenSachSpm());
         values.put("TIENTHUE", m.getTienthue());
         values.put("NGAYMUON", m.getNgaymuon());
         values.put("TRASACH", m.getTraSach());

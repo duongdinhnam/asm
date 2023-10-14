@@ -1,12 +1,10 @@
 package namddph34374.fpoly.du_an_mau.LopModel;
 
-import java.util.Date;
-
 public class phieuMuon {
     private int maPm;
     private String maNVpm;
-    private int maTVpm;
-    private int maSpm;
+    private String tenTVpm;
+    private String tenSachSpm;
     private int tienthue;
     private String ngaymuon;
     private int traSach;
@@ -14,10 +12,11 @@ public class phieuMuon {
     public phieuMuon() {
     }
 
-    public phieuMuon(String maNVpm, int maTVpm, int maSpm, int tienthue, String ngaymuon, int traSach) {
+    public phieuMuon(int maPm, String maNVpm, String tenTVpm, String tenSachSpm, int tienthue, String ngaymuon, int traSach) {
+        this.maPm = maPm;
         this.maNVpm = maNVpm;
-        this.maTVpm = maTVpm;
-        this.maSpm = maSpm;
+        this.tenTVpm = tenTVpm;
+        this.tenSachSpm = tenSachSpm;
         this.tienthue = tienthue;
         this.ngaymuon = ngaymuon;
         this.traSach = traSach;
@@ -39,20 +38,20 @@ public class phieuMuon {
         this.maNVpm = maNVpm;
     }
 
-    public int getMaTVpm() {
-        return maTVpm;
+    public String getTenTVpm() {
+        return tenTVpm;
     }
 
-    public void setMaTVpm(int maTVpm) {
-        this.maTVpm = maTVpm;
+    public void setTenTVpm(String tenTVpm) {
+        this.tenTVpm = tenTVpm;
     }
 
-    public int getMaSpm() {
-        return maSpm;
+    public String getTenSachSpm() {
+        return tenSachSpm;
     }
 
-    public void setMaSpm(int maSpm) {
-        this.maSpm = maSpm;
+    public void setTenSachSpm(String tenSachSpm) {
+        this.tenSachSpm = tenSachSpm;
     }
 
     public int getTienthue() {
@@ -67,7 +66,7 @@ public class phieuMuon {
         return ngaymuon;
     }
 
-    public void setNgaymuon() {
+    public void setNgaymuon(String ngaymuon) {
         this.ngaymuon = ngaymuon;
     }
 

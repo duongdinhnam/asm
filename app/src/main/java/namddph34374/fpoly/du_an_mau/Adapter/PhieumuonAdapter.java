@@ -47,8 +47,8 @@ public class PhieumuonAdapter extends RecyclerView.Adapter<PhieumuonAdapter.View
         phieuMuon phieumuon = list.get(position);
 
         holder.tvmapm.setText("Mã phiếu mượn: " + phieumuon.getMaPm());
-        holder.tvthanhvien.setText("Thành viên: " + phieumuon.getMaTVpm());
-        holder.tvtensach.setText("Tên sách: " + phieumuon.getMaSpm());
+        holder.tvthanhvien.setText("Thành viên: " + phieumuon.getTenTVpm());
+        holder.tvtensach.setText("Tên sách: " + phieumuon.getTenSachSpm());
         holder.tvtienthue.setText("Tiền thuê: " + String.valueOf(phieumuon.getTienthue()));
         holder.tvngaythue.setText("Ngày thuê: " + phieumuon.getNgaymuon());
 

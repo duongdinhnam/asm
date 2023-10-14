@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import namddph34374.fpoly.du_an_mau.Dao.LoaiSachDAO;
 import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
@@ -37,6 +39,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     private ArrayList<Sach> list;
     SachDAO sachDAO;
     Sach sach;
+    ArrayList<Sach> lst;
     private LoaiSachDAO loaiSach;
     public SachAdapter(Context context, ArrayList<Sach> list, SachDAO sachDAO) {
         this.context = context;
@@ -184,6 +187,36 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     @Override
     public int getItemCount() {
         return list.size();
+    }
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if (strSearch.isEmpty()) {
+                    list = lst;
+                } else {
+                    List<Sach> listtv =  new ArrayList<>();
+                    for (Sach sach : list) {
+                        if (sach.getTens().toLowerCase().contains(strSearch.toLowerCase())) {
+                            listtv.add(sach);
+                        }
+                        ;
+                    }
+                    list = (ArrayList<Sach>) listtv;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                list = (ArrayList<Sach>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+
     }
 
 
