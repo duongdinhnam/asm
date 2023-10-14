@@ -79,7 +79,7 @@ public class Doanhthu extends Fragment {
         btnDoanhthu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phieumuonDAO = new PhieumuonDAO(getContext());
+            phieumuonDAO = new PhieumuonDAO(getContext());
             int tongDoanhThu = phieumuonDAO.getDoanhThu(start, end);
             tvDoanhthu.setText(String.valueOf(tongDoanhThu));
             }

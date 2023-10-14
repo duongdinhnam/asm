@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edttenloaisach_upls"
+            android:id="@+id/edttenloaisach_addls"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint=""

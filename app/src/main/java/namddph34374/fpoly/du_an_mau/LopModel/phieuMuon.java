@@ -1,5 +1,7 @@
 package namddph34374.fpoly.du_an_mau.LopModel;
 
+import java.util.Date;
+
 public class phieuMuon {
     private int maPm;
     private String maNVpm;
@@ -65,7 +67,7 @@ public class phieuMuon {
         return ngaymuon;
     }
 
-    public void setNgaymuon(String ngaymuon) {
+    public void setNgaymuon() {
         this.ngaymuon = ngaymuon;
     }
 

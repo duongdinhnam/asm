@@ -7,10 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
-import namddph34374.fpoly.du_an_mau.LopModel.Sach;
 import namddph34374.fpoly.du_an_mau.LopModel.Top;
 import namddph34374.fpoly.du_an_mau.LopModel.phieuMuon;
 
@@ -43,6 +42,7 @@ public class PhieumuonDAO {
         cursor.close(); // Đóng cursor sau khi sử dụng
         return list;
     }
+
 
 
     public long addphieumuon(phieuMuon m){
@@ -104,7 +104,7 @@ public class PhieumuonDAO {
     @SuppressLint("Range")
     public int getDoanhThu(String tuNgay, String denNgay) {
         String sqlDoanhThu = "SELECT SUM(TIENTHUE) as doanhThu FROM pm WHERE NGAYMUON BETWEEN ? AND ? ";
-        SQLiteDatabase database = dbheper.getReadableDatabase();
+         database = dbheper.getReadableDatabase();
         Cursor cursor = database.rawQuery(sqlDoanhThu, new String[]{tuNgay, denNgay});
 
         int doanhThu = 0;

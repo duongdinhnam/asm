@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class Dbheper extends SQLiteOpenHelper {
     private static final String DB_NAME = "PNLINB.db";
-    private static final int VERSION = 15;
+    private static final int VERSION = 18;
     public Dbheper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
     }
@@ -69,8 +69,8 @@ public class Dbheper extends SQLiteOpenHelper {
                 "TRASACH INTEGER)";
         db.execSQL(createTablepm);
         String insertpm = "INSERT INTO pm ( MANVPM, MATVPM, MASPM, TIENTHUE, NGAYMUON, TRASACH) VALUES "
-                + "( '1' , 1 , 1 , 20000, '2023-09-27', 1), "
-                + "( '2' , 1 , 2 , 12000, '2023-02-20', 0)";
+                + "( '1' , 1 , 1 , 20000, '2023/09/27', 1), "
+                + "( '2' , 1 , 2 , 12000, '2023/02/20', 0)";
         db.execSQL(insertpm);
     }
 
