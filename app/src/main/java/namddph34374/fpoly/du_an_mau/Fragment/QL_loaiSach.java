@@ -48,7 +48,6 @@ public class QL_loaiSach extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(sachAdapter);
-
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,9 +83,9 @@ public class QL_loaiSach extends Fragment {
                     Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                loaiSach ls = new loaiSach(tenloai);
+                loaiSach loaiSach = new loaiSach(tenloai);
 
-                if (loaiSachDAO.addLoaiSach(ls) > 0) {
+                if (loaiSachDAO.addLoaiSach(loaiSach) > 0) {
                     Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                     list.clear();
                     list.addAll(loaiSachDAO.getALLLS());

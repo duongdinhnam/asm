@@ -4,97 +4,100 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Danh sách phiếu mượn"
-        android:textSize="30dp"
-        android:textColor="#6A0606"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        />
-
-    <TextView
-        android:id="@+id/edMaPM"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mã Phiếu Mượn:"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thành viên:"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"
-        />
-
-
-    <Spinner
-        android:id="@+id/spMaTv_pm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tên sách:"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"
-        />
-
-    <Spinner
-        android:id="@+id/spMaS_pm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-
-        />
-
-
-    <CheckBox
-        android:id="@+id/chkTraSach_pm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Đã trả sách: "
-        android:textSize="20dp"
-        android:textColor="#571010"
-        android:layout_marginTop="30dp"/>
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <Button
-            android:id="@+id/btnSavePM_pm"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Thêm phiếu mượn"
+            android:textColor="#F30A0A"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Tên thành viên"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spn_edtTenTV_pm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:textSize="23sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tên sách"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spn_edtTenSach_pm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:textSize="23sp" />
+
+
+
+        <CheckBox
+            android:id="@+id/chkTrangThai_addpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Đã trả sách"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_weight="1"
-            android:text="Lưu"
-            android:background="@drawable/maubutton"
-            app:backgroundTint="@null"/>
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnCancelPM"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/maubutton"
-            app:backgroundTint="@null"
-            android:text="Hủy" />
+            <Button
+                android:id="@+id/btnAdd_addpm"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/maubutton"
+                app:backgroundTint="@null"
+                android:text="Thêm"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/btnHuy_addpm"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:background="@drawable/maubutton"
+                app:backgroundTint="@null"
+                android:text="Hủy"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </LinearLayout>
+
 
     </LinearLayout>
+
 </LinearLayout>

@@ -23,7 +23,8 @@ public class SachDAO {
             Sach s = new Sach(
                     cursor.getString(1),
                     cursor.getInt(2),
-                    cursor.getString(3));
+                    cursor.getString(3),
+                    cursor.getInt(4));
             s.setMas(cursor.getInt(0));
             list.add(s);
         }
@@ -36,6 +37,7 @@ public class SachDAO {
         values.put("TENS", s.getTens());
         values.put("GIAS", s.getGias());
         values.put("MALS", s.getMals());
+        values.put("NAMXB",s.getNamxb());
         return database.insert("s", null, values);
     }
     public long updateSach(Sach s){
@@ -44,6 +46,7 @@ public class SachDAO {
         values.put("TENS", s.getTens());
         values.put("GIAS", s.getGias());
         values.put("MALS", s.getMals());
+        values.put("NAMXB",s.getNamxb());
         long check = database.update("s", values, "MAS=?", new String[]{String.valueOf(s.getMas())});
         return check;
     }

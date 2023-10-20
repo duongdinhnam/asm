@@ -28,6 +28,12 @@
         android:layout_height="wrap_content"
         android:hint="Giá Sách"
         android:layout_marginBottom="16dp" />
+    <EditText
+        android:id="@+id/editnamxb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Năm xuất bản"
+        android:layout_marginBottom="16dp" />
 
     <Spinner
         android:id="@+id/spiner"

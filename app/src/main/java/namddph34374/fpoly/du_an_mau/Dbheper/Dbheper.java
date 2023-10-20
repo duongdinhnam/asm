@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class Dbheper extends SQLiteOpenHelper {
     private static final String DB_NAME = "PNLINB.db";
-    private static final int VERSION = 19;
+    private static final int VERSION = 20;
     public Dbheper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
     }
@@ -18,13 +18,14 @@ public class Dbheper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // bảng nhân viên
         String createTablenv = "CREATE TABLE nv(MANV INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "TENLOGIN TEXT,"+
                 "HOTEN TEXT,"+
                 "MATKHAU TEXT)";
         db.execSQL(createTablenv);
-        String insertnv = "INSERT INTO nv ( HOTEN, MATKHAU) VALUES "
-                + "( 'nam', '123'), "
-                + "( 'abc', 'abc'), "
-                + "( 'qaz', 'xyz')";
+        String insertnv = "INSERT INTO nv (TENLOGIN, HOTEN, MATKHAU) VALUES "
+                + "('nam', 'dương đình nam', '123'), "
+                + "( 'abc', 'dương đình nam', 'abc'), "
+                + "( 'qaz','dương đình nam' ,'xyz')";
         db.execSQL(insertnv);
 
         // bảng thành viên
@@ -51,24 +52,39 @@ public class Dbheper extends SQLiteOpenHelper {
         String createTables = "CREATE TABLE s(MAS INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "TENS TEXT,"+
                 "GIAS INTEGER,"+
-                "MALS TEXT REFERENCES loaiSach(MALS))";
+                "MALS TEXT REFERENCES loaiSach(MALS),"+
+                "NAMXB INTEGER)";
         db.execSQL(createTables);
-        String inserts = "INSERT INTO s ( TENS, GIAS, MALS) VALUES "
-                + "( 'doraemon', 10000, 'Ngôn ngữ game'), "
-                + "( 'one piece',11000 , 'Ngôn ngữ game'), "
-                + "( 'lập trình java', 30000, 'Lập trình java')";
+        String inserts = "INSERT INTO s ( TENS, GIAS, MALS, NAMXB) VALUES "
+                + "( 'doraemon', 10000, 'Ngôn ngữ game', 2004), "
+                + "( 'one piece',11000 , 'Ngôn ngữ game', 2002), "
+                + "( 'lập trình java', 30000, 'Lập trình java', 2000)";
         db.execSQL(inserts);
 
         // bảng  phiếu mượn
         String createTablepm = "CREATE TABLE pm(MAPM INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "MANVPM TEXT REFERENCES nhanVien(MANV), " +
-                "TENTVPM TEXT REFERENCES thanhVien(MATV), " +
-                "TENSACHSPM TEXT REFERENCES Sach(MAS), " +
+                "MATVPM INTEGER REFERENCES thanhVien(MATV), " +
+                "MASPM INTEGER REFERENCES Sach(MAS), " +
                 "TIENTHUE INTEGER,"+
                 "NGAYMUON TEXT,"+
                 "TRASACH INTEGER)";
         db.execSQL(createTablepm);
+        String insertpm = "INSERT INTO pm ( MANVPM, MATVPM, MASPM, TIENTHUE, NGAYMUON, TRASACH) VALUES "
+                + "( '1' , 1 , 1 , 20000, '2023-09-27', 1), "
+                + "( '2' , 1 , 2 , 12000, '2023-02-20', 0)";
+        db.execSQL(insertpm);
 
+        // admin
+        String createTableAdmin = "CREATE TABLE admin(ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "TENDANGNHAP TEXT," +
+                "HOTEN TEXT," +
+                "MATKHAU TEXT)";
+        db.execSQL(createTableAdmin);
+        String dsnd = "INSERT INTO admin (TENDANGNHAP, HOTEN, MATKHAU) VALUES" +
+                "('admin','Dương Đình Nam','admin')," +
+                "('nam','Dương Đình Nam','123')";
+        db.execSQL(dsnd);
     }
 
 

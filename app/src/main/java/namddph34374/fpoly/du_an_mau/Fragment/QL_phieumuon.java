@@ -82,15 +82,15 @@ public class QL_phieumuon extends Fragment {
         dialog.show();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        Spinner edtTenSach,edtTenTV;
+        Spinner spnTenSach,spnTenTV;
         CheckBox chkTrangThai;
         Button btnAdd, btnHuy;
 
-        edtTenTV = view.findViewById(R.id.spMaTv_pm);
-        edtTenSach = view.findViewById(R.id.spMaS_pm);
-        chkTrangThai = view.findViewById(R.id.chkTraSach_pm);
-        btnAdd = view.findViewById(R.id.btnSavePM_pm);
-        btnHuy = view.findViewById(R.id.btnCancelPM);
+        spnTenTV = view.findViewById(R.id.spn_edtTenTV_pm);
+        spnTenSach = view.findViewById(R.id.spn_edtTenSach_pm);
+        chkTrangThai = view.findViewById(R.id.chkTrangThai_addpm);
+        btnAdd = view.findViewById(R.id.btnAdd_addpm);
+        btnHuy = view.findViewById(R.id.btnHuy_addpm);
 
         ArrayList<String> tenTVList = getTenTV();
         ArrayAdapter<String> spinnerTV = new ArrayAdapter<>(
@@ -100,7 +100,7 @@ public class QL_phieumuon extends Fragment {
 
         spinnerTV.setDropDownViewResource(android.R.layout.
                         simple_spinner_dropdown_item);
-        edtTenTV.setAdapter(spinnerTV);
+        spnTenTV.setAdapter(spinnerTV);
 
         ArrayList<String> tenSachList = getTenSachList();      // Lấy danh sách tên sách và lưu vào biến tenSachList
         ArrayAdapter<String> spinnerSach = new ArrayAdapter<>( // Tạo một Adapter để hiển thị danh sách tên sách trong Spinner
@@ -112,7 +112,7 @@ public class QL_phieumuon extends Fragment {
         spinnerSach.setDropDownViewResource(android.R.layout.
                         simple_spinner_dropdown_item);         // Đặt layout cho dropdown của Spinner (có thể thay đổi nếu muốn)
 
-        edtTenSach.setAdapter(spinnerSach);                   // Gắn Adapter vào Spinner để hiển thị danh sách tên sách
+        spnTenSach.setAdapter(spinnerSach);                   // Gắn Adapter vào Spinner để hiển thị danh sách tên sách
 
         ArrayList<Integer> giaTienThueList =
                 getGiaTienThueList();                         // Lấy danh sách giá tiền thuê sách và lưu vào biến giaTienThueList
@@ -120,9 +120,9 @@ public class QL_phieumuon extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tenTV = edtTenTV.getSelectedItem().toString();
-                String tenSach = edtTenSach.getSelectedItem().toString();
-                int giaTienThue = giaTienThueList.get(edtTenSach.getSelectedItemPosition()); // lấy giá tiền thuê của cuốn sách được chọn trong Spinner
+                String tenTV = spnTenTV.getSelectedItem().toString();
+                String tenSach = spnTenSach.getSelectedItem().toString();
+                int giaTienThue = giaTienThueList.get(spnTenSach.getSelectedItemPosition()); // lấy giá tiền thuê của cuốn sách được chọn trong Spinner
 
                 if (tenTV.isEmpty() || tenSach.isEmpty()) {
                     Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();

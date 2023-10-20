@@ -1,13 +1,20 @@
 package namddph34374.fpoly.du_an_mau.Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import namddph34374.fpoly.du_an_mau.Dao.PhieumuonDAO;
+import namddph34374.fpoly.du_an_mau.Dao.SachDAO;
+import namddph34374.fpoly.du_an_mau.Dao.ThanhVienDAO;
+import namddph34374.fpoly.du_an_mau.LopModel.Sach;
 import namddph34374.fpoly.du_an_mau.LopModel.phieuMuon;
+import namddph34374.fpoly.du_an_mau.LopModel.thanhVien;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class PhieumuonAdapter extends RecyclerView.Adapter<PhieumuonAdapter.ViewHolder> {
@@ -60,6 +71,12 @@ public class PhieumuonAdapter extends RecyclerView.Adapter<PhieumuonAdapter.View
             holder.tvtrasach.setTextColor(Color.parseColor("#ED0C0C"));
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDialog(phieumuon);
+            }
+        });
         holder.imgxoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +111,100 @@ public class PhieumuonAdapter extends RecyclerView.Adapter<PhieumuonAdapter.View
             }
         });
     }
+    public void updateDialog(phieuMuon pm) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_phieumuon, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        Spinner edtTenSach,edtTenTV;
+        TextView txtNgayThue, txtTienThue;
+        CheckBox chkTrangThai;
+        Button btnSua, btnHuy;
+
+        edtTenTV = view.findViewById(R.id.edtTenTV);
+        edtTenSach = view.findViewById(R.id.edtTenSach);
+        txtNgayThue = view.findViewById(R.id.txtNgayThue);
+        txtTienThue = view.findViewById(R.id.txtTienThue);
+        chkTrangThai = view.findViewById(R.id.chkTrangThai);
+        btnSua = view.findViewById(R.id.btnSua);
+        btnHuy = view.findViewById(R.id.btnHuy);
+
+        edtTenTV.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getTenThanhVienList()));
+        edtTenTV.setSelection(getTenThanhVienList().indexOf(pm.getTenTVpm()));
+
+        edtTenSach.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getTenSachList()));
+        edtTenSach.setSelection(getTenSachList().indexOf(pm.getTenSachSpm()));
+
+        txtNgayThue.setText(pm.getNgaymuon());
+        txtTienThue.setText(String.valueOf(pm.getTienthue()));
+        if (pm.getTraSach() == 1) {
+            chkTrangThai.setChecked(true);
+        } else {
+            chkTrangThai.setChecked(false);
+        }
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenTV = edtTenTV.getSelectedItem().toString();
+                String tenSach = edtTenSach.getSelectedItem().toString();
+
+                if (chkTrangThai.isChecked()){
+                    pm.setTraSach(1);
+                }else{
+                    pm.setTraSach(0);
+                }
+
+                if(tenTV.isEmpty()||tenSach.isEmpty()){
+                    Toast.makeText(context, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                pm.setTenTVpm(tenTV);
+                pm.setTenSachSpm(tenSach);
+
+                if (phieumuonDAO.updatephieumuon(pm)>0){
+                    list.clear();
+                    list.addAll(phieumuonDAO.getAllPM());
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private ArrayList<String> getTenSachList() {
+        SachDAO sachDAO = new SachDAO(context);
+        ArrayList<Sach> list1 = sachDAO.getAllSanpham();
+        ArrayList<String> tenSachList = new ArrayList<>();
+
+        for (Sach sach: list1){
+            tenSachList.add(sach.getTens());
+        }
+        return tenSachList;
+    }
+    private ArrayList<String> getTenThanhVienList() {
+        ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
+        ArrayList<thanhVien> list1 = thanhVienDAO.getAllSanpham();
+        ArrayList<String> tenThanhVienList = new ArrayList<>();
+
+        for (thanhVien tv: list1){
+            tenThanhVienList.add(tv.getHoTentv());
+        }
+        return tenThanhVienList;
+    }
 
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,10 +34,10 @@ import namddph34374.fpoly.du_an_mau.LopModel.loaiSach;
 import namddph34374.fpoly.du_an_mau.LopModel.thanhVien;
 import namddph34374.fpoly.du_an_mau.R;
 
-public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder> {
+public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder> implements Filterable {
 
     private Context context;
-    private ArrayList<Sach> list;
+    private ArrayList<Sach> list, listOld;
     SachDAO sachDAO;
     Sach sach;
     ArrayList<Sach> lst;
@@ -44,6 +45,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     public SachAdapter(Context context, ArrayList<Sach> list, SachDAO sachDAO) {
         this.context = context;
         this.list = list;
+        this.listOld = list;
         this.sachDAO = sachDAO;
     }
 
@@ -64,6 +66,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     holder.txttensach.setText("Tên sách: "+list.get(position).getTens());
     holder.txttienthue.setText("Tiền thuê: "+list.get(position).getGias());
     holder.txtloaisach.setText("Loại sách: "+list.get(position).getMals());
+    holder.txtnamxb.setText("Năm xuất bản: "+String.valueOf(list.get(position).getNamxb()));
 
 
     holder.imagexoa.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +120,14 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
         dialog.show();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        EditText edtTenSach,edtTienThue;
+        EditText edtTenSach, edtTienThue, edtNamxb;
         Spinner edtTenLoai;
         Button btnSua, btnHuy;
 
         edtTenSach = view.findViewById(R.id.edtTenSach_ups);
         edtTienThue = view.findViewById(R.id.edtTienThue_ups);
         edtTenLoai = view.findViewById(R.id.spinerTenLoai_ups);
+        edtNamxb = view.findViewById(R.id.edtnamxb_ups);
 
         btnSua = view.findViewById(R.id.btnup_ups);
         btnHuy = view.findViewById(R.id.btnHuy_ups);
@@ -140,6 +144,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
                 String ten = edtTenSach.getText().toString();
                 String tien = edtTienThue.getText().toString();
                 String loai = edtTenLoai.getSelectedItem().toString();
+                String nam = edtNamxb.getText().toString();
 
                 if (ten.isEmpty()||tien.isEmpty()){
                     Toast.makeText(context, "Không được để trống", Toast.LENGTH_SHORT).show();
@@ -150,9 +155,14 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
                     Toast.makeText(context, "Tiền thuê phải là sô", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!nam.matches("\\d+")){
+                    Toast.makeText(context, "Năm thuê là sô", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 s.setTens(ten);
                 s.setGias(Integer.parseInt(tien));
                 s.setMals(loai);
+                s.setNamxb(Integer.parseInt(nam));
 
                 if (sachDAO.updateSach(s)>0){
                     list.clear();
@@ -188,22 +198,23 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
     public int getItemCount() {
         return list.size();
     }
+
+    @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
-                if (strSearch.isEmpty()) {
-                    list = lst;
-                } else {
-                    List<Sach> listtv =  new ArrayList<>();
-                    for (Sach sach : list) {
-                        if (sach.getTens().toLowerCase().contains(strSearch.toLowerCase())) {
-                            listtv.add(sach);
+                if (strSearch.isEmpty()){
+                    list = listOld;
+                }else{
+                    ArrayList<Sach> listSearch = new ArrayList<>();
+                    for (Sach sach: listOld){
+                        if (sach.getTens().toLowerCase().contains(strSearch.toLowerCase())){
+                            listSearch.add(sach);
                         }
-                        ;
                     }
-                    list = (ArrayList<Sach>) listtv;
+                    list = listSearch;
                 }
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = list;
@@ -216,13 +227,10 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
                 notifyDataSetChanged();
             }
         };
-
     }
 
-
-
     public class SachViewHolder extends RecyclerView.ViewHolder{
-    TextView txtmas, txttensach, txttienthue, txtloaisach;
+    TextView txtmas, txttensach, txttienthue, txtloaisach, txtnamxb;
     ImageView imagexoa;
         public SachViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -230,6 +238,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.SachViewHolder
             txttensach = itemView.findViewById(R.id.tvtensach_s);
             txttienthue = itemView.findViewById(R.id.tvtienthue_s);
             txtloaisach = itemView.findViewById(R.id.tvloaisach_s);
+            txtnamxb = itemView.findViewById(R.id.tvnamxb_s);
             imagexoa = itemView.findViewById(R.id.btnxoa_s);
         }
     }

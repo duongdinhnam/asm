@@ -1,6 +1,7 @@
 package namddph34374.fpoly.du_an_mau.Fragment;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,12 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import namddph34374.fpoly.du_an_mau.Dao.AdminDAO;
+import namddph34374.fpoly.du_an_mau.Dao.NhanVienDAO;
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
+import namddph34374.fpoly.du_an_mau.LopModel.nhanVien;
 import namddph34374.fpoly.du_an_mau.R;
 
 public class Doi_Mk extends Fragment {
     private EditText edmkcu, edmkmoi, edmk_again;
     private Button btnluumk;
+    private nhanVien nv;
+    private AdminDAO adminDAO;
+    private NhanVienDAO nhanVienDAO;
     private SQLiteDatabase database;
 
     @Nullable
@@ -33,66 +40,73 @@ public class Doi_Mk extends Fragment {
         edmkmoi = view.findViewById(R.id.passwordTextInputLayout_text_moi);
         edmk_again = view.findViewById(R.id.passwordTextInputLayout_text_nhaplai);
         btnluumk = view.findViewById(R.id.btnluu_doimk);
-        String oldmk = edmkcu.getText().toString();
-        String newmk = edmkmoi.getText().toString();
-        String confirmmk = edmk_again.getText().toString();
-
-        Dbheper dbhelper = new Dbheper(getActivity());
-        database = dbhelper.getWritableDatabase();
+        adminDAO = new AdminDAO(getContext());
+        nhanVienDAO = new NhanVienDAO(getContext());
 
         btnluumk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String oldmk = edmkcu.getText().toString();
-                String newmk = edmkmoi.getText().toString();
-                String confirmmk = edmk_again.getText().toString();
-
-                if (TextUtils.isEmpty(oldmk) || TextUtils.isEmpty(newmk) || TextUtils.isEmpty(confirmmk)) {
-                    Toast.makeText(getActivity(), "Không để trống", Toast.LENGTH_SHORT).show();
-                } else if (!newmk.equals(confirmmk)) {
-                    Toast.makeText(getActivity(), "Mật khẩu mới và mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Kiểm tra mật khẩu cũ có đúng không
-                    if (checkOldPassword(oldmk)) {
-                        // Mật khẩu cũ đúng, thay đổi mật khẩu mới
-                        changePassword(newmk);
-                        Toast.makeText(getActivity(), "Đã thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                        // Đóng Fragment sau khi đổi mật khẩu thành công (hoặc điều chỉnh theo nhu cầu của bạn)
-                        // getFragmentManager().beginTransaction().remove(Doimatkhau.this).commit();
-                    } else {
-                        Toast.makeText(getActivity(), "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                dialogDoiMK();
             }
         });
 
 
 
-
         return view;
     }
-    private boolean checkOldPassword(String oldmk) {
-        // Tạo truy vấn SQL để lấy mật khẩu dựa trên tên người dùng (HOTEN)
-        String query = "SELECT MATKHAU FROM nv WHERE HOTEN = ?";
-        Cursor cursor = database.rawQuery(query, new String[]{oldmk});
+    private void dialogDoiMK() {
+        String oldmk = edmkcu.getText().toString();
+        String newmk = edmkmoi.getText().toString();
+        String confirmmk = edmk_again.getText().toString();
+        if (oldmk.isEmpty() || newmk.isEmpty() || confirmmk.isEmpty()) {
+            Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();
+        } else {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.baseline_error_24);
+            builder.setCancelable(false);
+            builder.setTitle("Đổi mật khẩu");
+            builder.setMessage("Bạn có chắc chắn muốn đổi mật khẩu không ?");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (newmk.equals(confirmmk)) {
+                        if (adminDAO.checkPasswordAndChange(oldmk, oldmk)) {
+                            Toast.makeText(getContext(), "Đổi thành công", Toast.LENGTH_SHORT).show();
+                            edmkmoi.setText("");
+                            edmkcu.setText("");
+                            edmk_again.setText("");
 
-        if (cursor.moveToFirst()) {
-            String storedPassword = cursor.getString(0);
-            cursor.close();
-            return oldmk.equals(storedPassword);
+                            edmkmoi.setFocusable(false);
+                            edmkcu.setFocusable(false);
+                            edmk_again.setFocusable(false);
+
+                        } else if (nhanVienDAO.doiMKNv(oldmk, newmk)) {
+                            Toast.makeText(getContext(), "Đổi thành công", Toast.LENGTH_SHORT).show();
+                            edmkmoi.setText("");
+                            edmkcu.setText("");
+                            edmk_again.setText("");
+
+                            edmkmoi.setFocusable(false);
+                            edmkcu.setFocusable(false);
+                            edmk_again.setFocusable(false);
+                        } else {
+                            Toast.makeText(getContext(), "Mật khẩu cũ sai", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Nhập lại mật khẩu sai", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+            builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // bắt sự kiện nhấn nút No
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
         }
-        cursor.close();
-        return false;
+
     }
-
-
-    private void changePassword(String newPassword) {
-        // Cập nhật mật khẩu mới vào cơ sở dữ liệu
-        ContentValues values = new ContentValues();
-        values.put("MATKHAU", newPassword);
-        String whereClause = "HOTEN = ?";
-        String[] whereArgs = new String[]{"nam"}; // Thay "nam" bằng tên tài khoản bạn muốn thay đổi mật khẩu
-        database.update("nv", values, whereClause, whereArgs);
-    }
-
 }

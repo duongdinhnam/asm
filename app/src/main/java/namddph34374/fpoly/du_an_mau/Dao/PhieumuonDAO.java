@@ -7,8 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import namddph34374.fpoly.du_an_mau.Dbheper.Dbheper;
+import namddph34374.fpoly.du_an_mau.LopModel.Sach;
 import namddph34374.fpoly.du_an_mau.LopModel.Top;
 import namddph34374.fpoly.du_an_mau.LopModel.phieuMuon;
 
@@ -25,6 +27,12 @@ public class PhieumuonDAO {
         if (cursor.moveToFirst()) { // Di chuyển con trỏ đến hàng đầu tiên
             do {
                 phieuMuon pm = new phieuMuon(
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getInt(4),
+                        cursor.getString(5),
+                        cursor.getInt(6)
                 );
                 pm.setMaPm(cursor.getInt(0)); // Gán mã phiếu mượn
 
@@ -37,30 +45,28 @@ public class PhieumuonDAO {
     }
 
 
-
     public long addphieumuon(phieuMuon m){
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MANVPM", m.getMaNVpm());
-        values.put("TENTVPM", m.getTenTVpm());
-        values.put("TENSACHSPM", m.getTenSachSpm());
+        values.put("MATVPM", m.getTenTVpm());
+        values.put("MASPM", m.getTenSachSpm());
         values.put("TIENTHUE", m.getTienthue());
         values.put("NGAYMUON", m.getNgaymuon());
         values.put("TRASACH", m.getTraSach());
         return database.insert("pm", null, values);
     }
-    public boolean updatephieumuon(phieuMuon m){
+    public long updatephieumuon(phieuMuon m){
         database = dbheper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MANVPM", m.getMaNVpm());
-        values.put("TENTVPM", m.getTenTVpm());
-        values.put("TENSACHSPM", m.getTenSachSpm());
+        values.put("MATVPM", m.getTenTVpm());
+        values.put("MASPM", m.getTenSachSpm());
         values.put("TIENTHUE", m.getTienthue());
         values.put("NGAYMUON", m.getNgaymuon());
         values.put("TRASACH", m.getTraSach());
-        long row = database.update("pm", values, "MAPM=?", new String[]{
-                String.valueOf(m.getMaPm())});
-        return (row > 0);
+        long check = database.update("pm", values, "MAPM=?", new String[]{String.valueOf(m.getMaPm())});
+        return check;
     }
 
     public long deletephiuemuon(int mapm){
@@ -97,7 +103,7 @@ public class PhieumuonDAO {
     @SuppressLint("Range")
     public int getDoanhThu(String tuNgay, String denNgay) {
         String sqlDoanhThu = "SELECT SUM(TIENTHUE) as doanhThu FROM pm WHERE NGAYMUON BETWEEN ? AND ? ";
-         database = dbheper.getReadableDatabase();
+        SQLiteDatabase database = dbheper.getReadableDatabase();
         Cursor cursor = database.rawQuery(sqlDoanhThu, new String[]{tuNgay, denNgay});
 
         int doanhThu = 0;

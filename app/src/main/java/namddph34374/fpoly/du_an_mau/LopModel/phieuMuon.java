@@ -12,7 +12,7 @@ public class phieuMuon {
     public phieuMuon() {
     }
 
-    public phieuMuon(int maPm, String maNVpm, String tenTVpm, String tenSachSpm, int tienthue, String ngaymuon, int traSach) {
+    public phieuMuon( String maNVpm, String tenTVpm, String tenSachSpm, int tienthue, String ngaymuon, int traSach) {
         this.maPm = maPm;
         this.maNVpm = maNVpm;
         this.tenTVpm = tenTVpm;

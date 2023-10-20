@@ -87,6 +87,7 @@ public class QL_sach extends Fragment {
 
         EditText edtTenSach = view.findViewById(R.id.editts);
         EditText edtGiaSach = view.findViewById(R.id.editgiasach);
+        EditText edtNamxb = view.findViewById(R.id.editnamxb);
         Spinner spinnerLoaiSach = view.findViewById(R.id.spiner);
 
         // Set loại sách lên Spinner
@@ -105,14 +106,15 @@ public class QL_sach extends Fragment {
                 // Lấy thông tin từ EditText và Spinner
                 String tenSach = edtTenSach.getText().toString();
                 String giaSach = edtGiaSach.getText().toString();
+                String namXb = edtNamxb.getText().toString();
                 String selectedLoaiSach = spinnerLoaiSach.getSelectedItem().toString();
 
                 // Kiểm tra xem các trường dữ liệu có hợp lệ không (ví dụ: không để trống)
-                if (TextUtils.isEmpty(tenSach) || TextUtils.isEmpty(giaSach)) {
+                if (TextUtils.isEmpty(tenSach) || TextUtils.isEmpty(giaSach) || TextUtils.isEmpty(namXb)) {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Sach sach = new Sach(tenSach, Integer.parseInt(giaSach),selectedLoaiSach);
+                Sach sach = new Sach(tenSach, Integer.parseInt(giaSach),selectedLoaiSach,Integer.parseInt(namXb) );
                 if (sachDAO.addSach(sach) > 0) {
                     Toast.makeText(getContext(), "Thêm sách thành công", Toast.LENGTH_SHORT).show();
                     // Cập nhật RecyclerView sau khi thêm sách

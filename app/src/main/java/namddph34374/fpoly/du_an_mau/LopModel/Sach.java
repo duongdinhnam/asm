@@ -5,17 +5,18 @@ public class Sach {
     private String tens;
     private int gias;
     private String mals;
+    private int namxb;
 
 
     public Sach() {
     }
 
-    public Sach( String tens, int gias, String mals) {
+    public Sach( String tens, int gias, String mals, int namxb) {
         this.mas = mas;
         this.tens = tens;
         this.gias = gias;
         this.mals = mals;
-
+        this.namxb = namxb;
     }
 
     public int getMas() {
@@ -50,5 +51,11 @@ public class Sach {
         this.mals = mals;
     }
 
+    public int getNamxb() {
+        return namxb;
+    }
 
+    public void setNamxb(int namxb) {
+        this.namxb = namxb;
+    }
 }
